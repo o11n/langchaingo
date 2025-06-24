@@ -69,6 +69,9 @@ type CallOptions struct {
 	// Supported MIME types are: text/plain: (default) Text output.
 	// application/json: JSON response in the response candidates.
 	ResponseMIMEType string `json:"response_mime_type,omitempty"`
+
+	// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+	User string `json:"user,omitempty"`
 }
 
 // Tool is a tool that can be used by the model.
@@ -288,5 +291,12 @@ func WithMetadata(metadata map[string]interface{}) CallOption {
 func WithResponseMIMEType(responseMIMEType string) CallOption {
 	return func(o *CallOptions) {
 		o.ResponseMIMEType = responseMIMEType
+	}
+}
+
+// WithUser allows setting a unique user identifier for the request.
+func WithUser(user string) CallOption {
+	return func(o *CallOptions) {
+		o.User = user
 	}
 }
